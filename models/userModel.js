@@ -4,86 +4,90 @@ const bcrypt = require("bcrypt");
 const userSchema = mongoose.Schema(
   {
     role: {
-      type: String, // String with allowed values "Client" or "Freelancer"
+      type: String,
       enum: ["Client", "Freelancer"],
       required: [true, "Choose Your Role"],
     },
     type: {
-      type: String, // String with allowed values "Individual" or "Business"
+      type: String,
       enum: ["Individual", "Business"],
       required: [true, "Select the type"],
     },
     name: {
-      type: String, // String
+      type: String,
       required: true,
       unique: [true, "Name has to be unique"],
     },
     email: {
-      type: String, // String
+      type: String,
       required: true,
       unique: [true, "Email already in use"],
     },
     approved: {
-      type: Boolean, // Boolean
+      type: Boolean,
       default: false,
     },
     consultation: {
-      type: Boolean, // Boolean
+      type: Boolean,
       default: false,
     },
     password: {
-      type: String, // String
+      type: String,
       required: true,
     },
     phone: {
-      type: Number, // Number
+      type: Number,
       unique: true,
     },
+    phone_verified: {
+      type: Boolean,
+      default: false,
+    },
     account_balance: {
-      type: Number, // Number
+      type: Number,
       default: 0,
     },
     avatar: {
-      type: String, // String
+      type: String,
     },
     location: {
-      type: String, // String
+      type: String,
     },
     experience: {
-      type: [Number], // Array of Numbers
+      type: [Number],
     },
     skills: {
-      type: [String], // Array of Strings
+      type: [String],
     },
     schedule: {
-      type: String, // String
+      type: String,
     },
     tasks: {
-      type: [String], // Array of Strings
+      type: [String],
     },
     hours: {
-      type: String, // String
+      type: String,
     },
     portfolio: {
-      type: String, // String
+      type: String,
     },
     sample_work: [
       {
-        title: String, // String
-        fileUrl: String, // String
+        title: String,
+        fileUrl: String,
       },
     ],
     payment_method: {
-      type: String, // String
+      type: String,
     },
     payment_rate: {
-      type: String, // String
+      type: String,
     },
     resetToken: {
-      type: String, // String
+      type: String,
     },
     resetTokenExpiration: {
-      type: Date, // Date
+      type: Date,
     },
   },
   {
@@ -94,14 +98,6 @@ const userSchema = mongoose.Schema(
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) {
-    next();
-  } else {
-    const salt = await bcrypt.genSalt(10);
-    this.password = await bcrypt.hash(this.password, salt);
-  }
-});
 
 const User = mongoose.model("User", userSchema);
 

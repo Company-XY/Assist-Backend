@@ -7,6 +7,7 @@ const resetRoutes = require("./routes/resetPasswordRoutes");
 const jobRoutes = require("./routes/jobRoutes");
 const bidRoutes = require("./routes/bidRoutes");
 const consultationRoutes = require("./routes/consultationRoutes");
+const paymentRoutes = require("./routes/paymentRoutes");
 
 const app = express();
 app.use(cors());
@@ -32,5 +33,6 @@ app.use("/api/v1", resetRoutes);
 app.use("/api/v1", jobRoutes);
 app.use("/api/v1", bidRoutes);
 app.use("/api/v1", consultationRoutes);
+app.use("/api/v1", paymentRoutes);
 
 module.exports = app;
