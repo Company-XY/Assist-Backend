@@ -1,15 +1,15 @@
 const express = require("express");
-const protect = require("../middlewares/authMiddleware");
-const paymentController = require("../controllers/paymentController");
+const { protect } = require("../middlewares/authMiddleware");
+const {
+  depositFunds,
+  transferFunds,
+  withdrawToPayPal,
+} = require("../controllers/paymentController");
 
 const router = express.Router();
 
-router.post("/:userId/deposit", protect, paymentController.depositFunds);
-router.post(
-  "/:senderId/transfer/:recipientId",
-  protect,
-  paymentController.transferFunds
-);
-router.post("/:userId/withdraw", protect, paymentController.withdrawToPayPal);
+router.post("/:userId/deposit", protect, depositFunds);
+router.post("/:senderId/transfer/:recipientId", protect, transferFunds);
+router.post("/:userId/withdraw", protect, withdrawToPayPal);
 
 module.exports = router;

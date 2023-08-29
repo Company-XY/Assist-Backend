@@ -1,4 +1,5 @@
-const User = require("../models/user");
+const asyncHandler = require("express-async-handler");
+const User = require("../models/userModel");
 const paypal = require("paypal-rest-sdk");
 
 paypal.configure({
@@ -7,7 +8,7 @@ paypal.configure({
   client_secret: process.env.PAYPAL_CLIENT_SECRET,
 });
 
-const depositFunds = async (req, res) => {
+const depositFunds = asyncHandler(async (req, res) => {
   const userId = req.params.userId;
   const { amount } = req.body;
 
@@ -26,9 +27,9 @@ const depositFunds = async (req, res) => {
     console.error(error);
     return res.status(500).json({ error: "Failed to deposit funds" });
   }
-};
+});
 
-const transferFunds = async (req, res) => {
+const transferFunds = asyncHandler(async (req, res) => {
   const senderId = req.params.senderId;
   const recipientId = req.params.recipientId;
   const { amount } = req.body;
@@ -56,9 +57,9 @@ const transferFunds = async (req, res) => {
     console.error(error);
     return res.status(500).json({ error: "Failed to transfer funds" });
   }
-};
+});
 
-const withdrawToPayPal = async (req, res) => {
+const withdrawToPayPal = asyncHandler(async (req, res) => {
   const userId = req.params.userId;
   const { amount } = req.body;
 
@@ -106,7 +107,7 @@ const withdrawToPayPal = async (req, res) => {
     console.error(error);
     return res.status(500).json({ error: "Withdrawal process failed" });
   }
-};
+});
 
 module.exports = {
   depositFunds,
