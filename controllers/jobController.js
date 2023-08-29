@@ -1,6 +1,7 @@
 const asyncHandler = require("express-async-handler");
 const Job = require("../models/jobModel");
 const Bid = require("../models/bidModel");
+const User = require("../models/userModel");
 
 const getAllJobs = asyncHandler(async (req, res) => {
   try {
@@ -8,6 +9,43 @@ const getAllJobs = asyncHandler(async (req, res) => {
     res.status(200).json(jobs);
   } catch (error) {
     res.status(400).json({ error: error.message });
+  }
+});
+
+const getRecommendedJobs = asyncHandler(async (req, res) => {
+  const calculateSkillSimilarity = (userSkills, jobRequiredSkills) => {
+    const commonSkills = userSkills.filter((skill) =>
+      jobRequiredSkills.includes(skill)
+    );
+    return commonSkills.length / userSkills.length; // Simple similarity calculation
+  };
+  try {
+    try {
+      const userId = req.user.id; // Assuming user authentication
+      const user = await User.findById(userId);
+
+      const jobs = await Job.find();
+
+      const recommendedJobs = [];
+
+      for (const job of jobs) {
+        const skillSimilarity = calculateSkillSimilarity(
+          user.skills,
+          job.requiredSkills
+        );
+        recommendedJobs.push({ job, skillSimilarity });
+      }
+
+      recommendedJobs.sort((a, b) => b.skillSimilarity - a.skillSimilarity);
+
+      const topRecommendedJobs = recommendedJobs.slice(0, 10); // Select top 10 recommendations
+
+      res.status(200).json(topRecommendedJobs);
+    } catch (error) {
+      res.status(400).json({ error: error.message });
+    }
+  } catch (error) {
+    res.status(404).json({ message: error.message });
   }
 });
 
@@ -112,6 +150,7 @@ const getJobBids = asyncHandler(async (req, res) => {
 module.exports = {
   getAllJobs,
   getUserJobs,
+  getRecommendedJobs,
   createJob,
   getOneJob,
   updateJob,

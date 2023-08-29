@@ -2,6 +2,7 @@ const express = require("express");
 const {
   getAllJobs,
   getUserJobs,
+  getRecommendedJobs,
   createJob,
   getOneJob,
   updateJob,
@@ -18,6 +19,9 @@ router
   .route("/jobs")
   .get(getAllJobs)
   .post(protect, upload.array("files", 10), createJob);
+
+//Route for handiling recommended jobs
+router.route("/jobs/recommended").get(protect, getRecommendedJobs);
 
 // Routes for handling individual job
 router
