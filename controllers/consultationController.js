@@ -16,7 +16,7 @@ const bookConsultation = asyncHandler(async (req, res) => {
     } = req.body;
 
     const newConsultation = await Consultation.create({
-      user: req.user.id,
+      user: req.user._id,
       title,
       firstName,
       lastName,

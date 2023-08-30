@@ -1,0 +1,132 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "ASSIST",
+    "dateExported": "2023-08-30T14:24:25.164Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "18998251-5fb5-4d90-ba08-1307350ff5c2",
+            "colId": "b8ae99c2-6c36-43ec-9ee2-63289b6a3ed7",
+            "containerId": "",
+            "name": "Status",
+            "url": "http://localhost:8080/api/v1",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-08-29T13:21:16.924Z",
+            "modified": "2023-08-30T14:01:37.970Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "28d863d1-0e1c-4740-9a78-34fd8f842aba",
+            "colId": "b8ae99c2-6c36-43ec-9ee2-63289b6a3ed7",
+            "containerId": "",
+            "name": "Jobs",
+            "url": "https://assist-backend.onrender.com/api/v1/jobs",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-08-29T13:21:53.735Z",
+            "modified": "2023-08-29T13:22:07.370Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "4906188d-835b-4f6c-bd65-f20a2750645f",
+            "colId": "b8ae99c2-6c36-43ec-9ee2-63289b6a3ed7",
+            "containerId": "",
+            "name": "Login",
+            "url": "https://assist-backend.onrender.com/api/v1/login",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-08-29T13:22:19.663Z",
+            "modified": "2023-08-29T14:08:50.172Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"collog1824@gmail.com\",\n  \"password\": \"Olosko2018?\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "46fead58-e34c-4d4a-b760-1a4e93073f2c",
+            "colId": "b8ae99c2-6c36-43ec-9ee2-63289b6a3ed7",
+            "containerId": "",
+            "name": "Freelancer Register",
+            "url": "http://localhost:8080/api/v1/register/freelancer",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-08-30T11:10:57.535Z",
+            "modified": "2023-08-30T14:05:07.793Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"type\" : \"Individual\",\n  \"name\" : \"Olosko2343\",\n  \"email\" : \"oloogeorg@gmail.com\",\n  \"password\" : \"Olosko2018?\",\n  \"consultation\": true\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "b3338b16-73f6-4d5d-88a4-8293afcd1275",
+            "colId": "b8ae99c2-6c36-43ec-9ee2-63289b6a3ed7",
+            "containerId": "",
+            "name": "Client Register",
+            "url": "http://localhost:8080/api/v1/register/freelancer",
+            "method": "POST",
+            "sortNum": 50000,
+            "created": "2023-08-30T14:05:25.798Z",
+            "modified": "2023-08-30T14:08:20.721Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"type\" : \"Individual\",\n  \"name\" : \"Olosko234\",\n  \"email\" : \"oloogeor@gmail.com\",\n  \"password\" : \"Olosko2018?\",\n  \"consultation\": true\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "06cdcaf1-5ddd-4abf-a9a3-b70b7464deb5",
+            "colId": "b8ae99c2-6c36-43ec-9ee2-63289b6a3ed7",
+            "containerId": "",
+            "name": "Password Reset",
+            "url": "http://localhost:8080/api/v1/reset",
+            "method": "POST",
+            "sortNum": 60000,
+            "created": "2023-08-30T14:09:13.250Z",
+            "modified": "2023-08-30T14:09:53.618Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"oloogeorge633@gmail.com\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "d0beb640-f9ca-4dd1-9d6a-5fe1d2de9045",
+            "colId": "b8ae99c2-6c36-43ec-9ee2-63289b6a3ed7",
+            "containerId": "",
+            "name": "Create Consultation",
+            "url": "http://localhost:8080/api/v1/consultations",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2023-08-30T14:10:26.826Z",
+            "modified": "2023-08-30T14:22:42.722Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"user\": \"64e1c8b4e848fd35655be32c\",\n  \"title\": \"Mr.\",\n  \"firstName\": \"George\",\n  \"lastName\": \"Collins\",\n  \"email\": \"oloogeorge633@gmail.com\",\n  \"phoneNumber\": \"0799590711\",\n  \"date\":  \"2023-08-20T00:00:00.000Z\",\n  \"time\": \"2:00 PM\",\n  \"date2\": \"2023-08-21T00:00:00.000Z\",\n  \"time2\": \"2:00 PM\"\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
