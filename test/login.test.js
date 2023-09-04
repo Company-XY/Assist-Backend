@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../index"); // Update this path to your app's entry point
+const app = require("../index");
 
 describe("User Login", () => {
   it("should authenticate a registered user", async () => {
@@ -27,7 +27,6 @@ describe("User Login", () => {
     expect(response.body).toHaveProperty("token");
     expect(response.body).toHaveProperty("name", newUser.name);
     expect(response.body).toHaveProperty("email", newUser.email);
-    // Add more assertions for other properties if needed
   });
 
   it("should not authenticate with incorrect password", async () => {

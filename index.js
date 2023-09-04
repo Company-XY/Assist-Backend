@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const PORT = process.env.PORT || 6000;
+const PORT = process.env.PORT || 7000;
 const URL = process.env.MONGO_URI;
 
 mongoose

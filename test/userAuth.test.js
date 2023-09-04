@@ -9,7 +9,7 @@ describe("User Authentication", () => {
       email: "test@example.com",
       name: "Test User",
       password: "TestPassword123!",
-      consultation: "Some consultation text",
+      consultation: "True",
     });
 
     expect(res.status).to.equal(201);
