@@ -63,34 +63,34 @@ const createJob = asyncHandler(async (req, res) => {
   try {
     const {
       title,
-      PR_services,
+      PR_Services,
       description,
       user_email,
       skills,
       budget,
       duration,
     } = req.body;
-
     if (!user_email) {
       return res.status(400).json({ message: "User email not found." });
     }
 
-    const files = req.files.map((file) => ({
-      title: file.originalname,
-      fileUrl: file.path,
-    }));
+    const files = Array.isArray(req.files)
+      ? req.files.map((file) => ({
+          title: file.originalname,
+          fileUrl: file.path,
+        }))
+      : [];
 
     const newJob = await Job.create({
       user_email,
       title,
-      PR_services,
+      PR_Services,
       description,
       skills,
       budget,
       duration,
       files,
     });
-
     res.status(201).json(newJob);
   } catch (error) {
     res.status(402).json({ message: error.message });
@@ -108,34 +108,27 @@ const getOneJob = asyncHandler(async (req, res) => {
 
 const updateJob = asyncHandler(async (req, res) => {
   try {
-    const { title, PR_services, description, skills, budget, duration } =
-      req.body;
+    const jobId = req.params.id;
+    const { files: newFiles } = req.body;
 
-    const updatedFields = {
-      title,
-      PR_services,
-      description,
-      skills,
-      budget,
-      duration,
-    };
+    // Retrieve the existing job document from the database.
+    const existingJob = await Job.findById(jobId);
 
-    if (req.files && req.files.length > 0) {
-      updatedFields.files = req.files.map((file) => ({
-        title: file.originalname,
-        fileUrl: file.path,
-      }));
+    if (!existingJob) {
+      return res.status(404).json({ message: "Job not found." });
     }
 
-    const updatedJob = await Job.findByIdAndUpdate(
-      req.params.id,
-      updatedFields,
-      { new: true }
-    );
+    // Append the new file(s) to the existing files array.
+    if (Array.isArray(newFiles) && newFiles.length > 0) {
+      existingJob.files = existingJob.files.concat(newFiles);
+    }
+
+    // Save the updated job document.
+    const updatedJob = await existingJob.save();
 
     res.status(200).json(updatedJob);
   } catch (error) {
-    res.status(404).json({ message: error.message });
+    res.status(500).json({ message: error.message });
   }
 });
 

@@ -18,6 +18,7 @@ const jobSchema = mongoose.Schema(
         "Press Release Writing",
         "Social Media Management",
         "Strategic Communication",
+        "Web Development",
         "Content Creation",
         "Reputation Management",
         "Community Engagement",
