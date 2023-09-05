@@ -186,76 +186,33 @@ const getUserProfile = asyncHandler(async (req, res) => {
 //@desc update user profile
 //@route ../api/v1/profile/:id
 //@access private
-const updateUserProfile = asyncHandler(
-  upload.fields([
-    { name: "avatar", maxCount: 1 }, // Single avatar file
-    { name: "sample_work", maxCount: 10 }, // Up to 10 sample work files
-  ]),
-  async (req, res) => {
-    try {
-      const {
-        name,
-        email,
-        phone,
-        location,
-        experience,
-        skills,
-        schedule,
-        tasks,
-        hours,
-        portfolio,
-        payment_method,
-        payment_rate,
-      } = req.body;
+const updateUserProfile = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.params;
+    const updateFields = req.body; // Get all the fields from the request body
 
-      const user = await User.findById(req.params.id);
+    // Use the `findByIdAndUpdate` method to update the user's document
+    // The { new: true } option returns the updated document
+    const user = await User.findByIdAndUpdate(id, updateFields, { new: true });
 
-      if (!user) {
-        res.status(404).json({ message: "User not found" });
-        return;
-      }
-
-      user.name = name;
-      user.email = email;
-      user.phone = phone;
-      user.location = location;
-      user.experience = experience;
-      user.skills = skills;
-      user.schedule = schedule;
-      user.tasks = tasks;
-      user.hours = hours;
-      user.portfolio = portfolio;
-      user.payment_method = payment_method;
-      user.payment_rate = payment_rate;
-
-      // Handle avatar upload
-      if (req.files["avatar"] && req.files["avatar"][0]) {
-        user.avatar = req.files["avatar"][0].path; // Save the avatar file path
-      }
-
-      // Handle sample work uploads
-      if (req.files["sampleWorkFiles"]) {
-        user.sample_work = req.files["sampleWorkFiles"].map((file) => {
-          return {
-            title: file.originalname, // Use original filename as the title
-            fileUrl: file.path, // Save the sample work file path
-          };
-        });
-      }
-
-      const updatedUser = await user.save();
-      res.status(200).json(updatedUser);
-    } catch (error) {
-      res.status(404).json({ message: error.message });
+    if (!user) {
+      // Handle the case where the user is not found
+      return res.status(404).json({ message: "User not found" });
     }
+
+    res.status(200).json(user);
+  } catch (error) {
+    res.status(400).json(error);
   }
-);
+});
+
+module.exports = { updateUserProfile };
 
 //One users views another user's profile
 //GET Request only
 const getAnotherProfile = asyncHandler(async (req, res) => {
   try {
-    const { id } = req.body;
+    const { id } = req.params;
     const userProfile = await findById(id);
     res.status(200).json(userProfile);
   } catch (error) {

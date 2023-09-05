@@ -22,15 +22,15 @@ router.post("/register/freelancer", registerFreelancer);
 router.post("/login", authUser);
 router.post("/logout", logoutUser);
 router
-  .route("/profile/:id")
+  .route("/user/:id")
   .get(getUserProfile)
   .patch(
     upload.fields([
       { name: "avatar", maxCount: 1 }, // Single avatar file
-      { name: "sample_work", maxCount: 10 }, // Up to 10 sample work files
+      { name: "files", maxCount: 10 }, // Up to 10 sample work files
     ]),
     updateUserProfile
   );
-router.route("/profile").get(getAnotherProfile);
+router.get("/profile/other/:id", getAnotherProfile);
 
 module.exports = router;
