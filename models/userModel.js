@@ -48,7 +48,8 @@ const userSchema = mongoose.Schema(
       default: 0,
     },
     avatar: {
-      type: String,
+      title: String,
+      fileUrl: String,
     },
     location: {
       type: String,
@@ -71,7 +72,8 @@ const userSchema = mongoose.Schema(
     portfolio: {
       type: String,
     },
-    sample_work: [
+    //sample_work changed to files
+    files: [
       {
         title: String,
         fileUrl: String,
