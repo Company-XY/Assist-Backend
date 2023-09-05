@@ -13,6 +13,14 @@ const userSchema = mongoose.Schema(
       enum: ["Individual", "Business"],
       required: [true, "Select the type"],
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
+    bio: {
+      type: String,
+      minLength: 150,
+    },
     name: {
       type: String,
       required: true,
@@ -55,7 +63,7 @@ const userSchema = mongoose.Schema(
       type: String,
     },
     experience: {
-      type: [Number],
+      type: [String],
     },
     skills: {
       type: [String],
